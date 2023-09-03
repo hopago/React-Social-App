@@ -3,9 +3,12 @@ import './login.css';
 import { loginCall } from '../../apiCalls';
 import { AuthContext } from '../../context/AuthContext';
 import { CircularProgress } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 
 
 export default function Login() {
+
+    const history = useHistory();
 
     const email = useRef();
     const password = useRef();
@@ -25,6 +28,13 @@ export default function Login() {
     };
 
     console.log(user);
+
+    const handleSwitch = (e) => {
+        e.preventDefault();
+
+        history.push("/register");
+
+    };
 
   return (
     <div className="login">
@@ -52,10 +62,10 @@ export default function Login() {
                     {
                     isFetching
                     ?  <CircularProgress className='fetchingCircle' />
-                    :  <button className="loginButton">Log In</button>
+                    :  <button className="loginButton" type='submit'>Log In</button>
                     }
                     <span className="loginForgot">Forgot Id or Password</span>
-                    <button className="loginRegisterButton">
+                    <button className="loginRegisterButton" onMouseDown={handleSwitch}>
                         Sign In
                     </button>
                 </form>

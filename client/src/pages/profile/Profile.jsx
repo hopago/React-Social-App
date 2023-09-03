@@ -22,6 +22,8 @@ export default function Profile() {
 
       const res = await axios.get(`/users?username=${username}`);
 
+      console.log(res.data);
+
       setUser(res.data);
 
     };
@@ -29,6 +31,8 @@ export default function Profile() {
     fetchUser();
 
   }, [username]);
+
+  console.log(user);
 
   return (
     <>

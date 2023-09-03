@@ -1,12 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import './post.css';
 import { MoreVert } from '@material-ui/icons';
 import axios from 'axios';
 import { format } from 'timeago.js';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
 
 
 export default function Post({ post }) {
+
+    console.log(post);
 
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
@@ -18,19 +21,48 @@ export default function Post({ post }) {
     const [isLiked, setIsLiked] = useState(false);
     const [isHearted, setIsHearted] = useState(false);
 
-    const handleClick = (name) => {
+    const { user: currentUser } = useContext(AuthContext);
+
+    useEffect(() => {
+
+        setIsLiked(post.likes.includes(currentUser._id));
+        setIsHearted(post.hearts.includes(currentUser._id));
+
+    }, [currentUser._id, post.hearts, post.likes]);
+
+    const handleClick = async (name) => {
 
         if(name === 'like') {
-            setLike(!isLiked ? like + 1 : like - 1);
-            setIsLiked(!isLiked);
+
+            try {
+            
+                await axios.put("/posts/" + post._id + "/like", { userId: currentUser._id });
+                setLike(!isLiked ? like + 1 : like - 1);
+                setIsLiked(!isLiked);
+    
+            } catch (err) {
+                console.log(err);
+            }
+
         } else if(name === 'heart') {
-            setHeart(!isHearted ? heart + 1 : heart - 1);
-            setIsHearted(!isHearted);
+
+            try {
+            
+                await axios.put("/posts/" + post._id + "/heart", { userId: currentUser._id });
+                setHeart(!isHearted ? heart + 1 : heart - 1);
+                setIsHearted(!isHearted);
+    
+            } catch (err) {
+                console.log(err);
+            }
+
         } 
 
     };
 
     useEffect(() => {
+
+        console.log(post.userId);
 
         const fetchUser = async () => {
 
@@ -69,13 +101,13 @@ export default function Post({ post }) {
                 <span className="postText">
                     {post.desc}
                 </span>
-                <img src={post.img && post.img} alt="" className='postImg' />
+                <img src={post.img && PF+post.img} alt="" className='postImg' />
             </div>
             <div className="postBottom">
                 <div className="postBottomLeft">
                     <img 
                       className='likeIcon' 
-                      src={`${PF}/like.png`} 
+                      src={PF+'like.png'}
                       alt="" 
                       onClick={() => handleClick('like')}
                     />
