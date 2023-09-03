@@ -11,14 +11,21 @@ import {
   School,
 } from '@material-ui/icons';
 import CloseFriend from '../closeFriend/CloseFriend';
+import { useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
+import { useParams } from 'react-router-dom';
 
 
 function Sidebar() {
 
-  const user = true;
+  const { user } = useContext(AuthContext);
+
+  const params = useParams();
+
+  console.log(params);
 
   return (
-    <div className={user ? "sidebar profile" : "sidebar"}>
+    <div className= "sidebar" id={params.username && "sidebarProfile"}>
       <div className="sidebarWrapper">
         <ul className="sidebarList">
           <li className="sidebarListItem">
