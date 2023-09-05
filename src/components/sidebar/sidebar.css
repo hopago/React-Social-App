@@ -5,9 +5,9 @@
     overflow-y: scroll;
 }
 
-.sidebar.profile {
+#sidebarProfile {
     flex: 2;
-    height: calc(100vh + 333px);
+    height: calc(100vh + 314px) !important;
     background-color: #F1F6F9;
     overflow-y: scroll;
 }
@@ -25,6 +25,8 @@
 }
 
 .sidebarWrapper {
+    width: calc(100% - 40px);
+    height: calc(100%- 40px);
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -83,18 +85,4 @@
     padding: 0;
     margin: 0;
     list-style: none;
-}
-
-.sidebarFriend {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.sidebarFriendImg {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-right: 10px;
 }

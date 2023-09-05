@@ -10,11 +10,22 @@ import {
   Event,
   School,
 } from '@material-ui/icons';
+import CloseFriend from '../closeFriend/CloseFriend';
+import { useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
+import { useParams } from 'react-router-dom';
 
 
 function Sidebar() {
+
+  const { user } = useContext(AuthContext);
+
+  const params = useParams();
+
+  console.log(params);
+
   return (
-    <div className="sidebar">
+    <div className= "sidebar" id={params.username && "sidebarProfile"}>
       <div className="sidebarWrapper">
         <ul className="sidebarList">
           <li className="sidebarListItem">
@@ -57,39 +68,7 @@ function Sidebar() {
         <button className="sidebarBtn">Show More</button>
         <hr className='sidebarHr' />
         <ul className="sidebarFriendList">
-          <li className="sidebarFriend">
-            <img className='sidebarFriendImg' src="/assets/person/2.png" alt="" />
-            <span className="sidebarFriendName">Pongsiri</span>
-          </li>
-          <li className="sidebarFriend">
-            <img className='sidebarFriendImg' src="/assets/person/2.png" alt="" />
-            <span className="sidebarFriendName">Pongsiri</span>
-          </li>
-          <li className="sidebarFriend">
-            <img className='sidebarFriendImg' src="/assets/person/2.png" alt="" />
-            <span className="sidebarFriendName">Pongsiri</span>
-          </li>
-          <li className="sidebarFriend">
-            <img className='sidebarFriendImg' src="/assets/person/2.png" alt="" />
-            <span className="sidebarFriendName">Pongsiri</span>
-          </li>
-          <li className="sidebarFriend">
-            <img className='sidebarFriendImg' src="/assets/person/2.png" alt="" />
-            <span className="sidebarFriendName">Pongsiri</span>
-          </li>
-          <li className="sidebarFriend">
-            <img className='sidebarFriendImg' src="/assets/person/2.png" alt="" />
-            <span className="sidebarFriendName">Pongsiri</span>
-          </li>
-          <li className="sidebarFriend">
-            <img className='sidebarFriendImg' src="/assets/person/2.png" alt="" />
-            <span className="sidebarFriendName">Pongsiri</span>
-          </li>
-          <li className="sidebarFriend">
-            <img className='sidebarFriendImg' src="/assets/person/2.png" alt="" />
-            <span className="sidebarFriendName">Pongsiri</span>
-          </li>
-          
+          <CloseFriend />
         </ul>
       </div>
     </div>
